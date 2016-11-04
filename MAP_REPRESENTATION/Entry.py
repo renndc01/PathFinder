@@ -74,17 +74,16 @@ def join(t,b):
 # CREATES A BORDER AROUND FULL MAP REPRESENTATION
 def border(f):
     tcol = [[]]*0
+    tcol.append([1]*(f[0].__len__()+2))
     for x in range(0, f.__len__()):
         trow = []*0
-        if x == 0 or x == f.__len__()-1:
-            trow = [1]*f[x].__len__()
-        else:
-            for y in range(0, f[x].__len__()):
-                if y == 0 or y == f[x].__len__()-1:
-                    trow.append(1)
-                else:
-                    trow.append(f[x][y])
+        for y in range(-1, f[x].__len__()+1):
+            if y == -1 or y == f[x].__len__():
+                trow.append(1)
+            else:
+                trow.append(f[x][y])
         tcol.append(trow)
+    tcol.append([1]*(f[0].__len__()+2))
     return tcol
 
 
