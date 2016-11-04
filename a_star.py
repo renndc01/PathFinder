@@ -1,5 +1,6 @@
 import queue
 
+
 def heuristic(a, b):
     (x1, y1) = a
     (x2, y2) = b
@@ -30,12 +31,13 @@ def a_star_search(graph, start, goal):
 
     return came_from, cost_so_far
 
+
 def reconstruct_path(came_from, start, goal):
     current = goal
     path = [current]
     while current != start:
         current = came_from[current]
         path.append(current)
-    path.append(start) # optional
-    path.reverse() # optional
+    path.append(start)  # optional
+    path.reverse()  # optional
     return path
