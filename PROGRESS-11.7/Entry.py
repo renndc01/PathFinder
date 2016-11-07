@@ -1,5 +1,8 @@
 from __future__ import print_function
 from pagi_api import *
+from map import *
+from a_star import *
+import sys
 import random
 # import cv2
 # import numpy as np
@@ -74,17 +77,17 @@ def join(t,b):
 # CREATES A BORDER AROUND FULL MAP REPRESENTATION
 def border(f):
     tcol = [[]]*0
+    tcol.append([1]*(f[0].__len__()+2))
     for x in range(0, f.__len__()):
         trow = []*0
-        if x == 0 or x == f.__len__()-1:
-            trow = [1]*f[x].__len__()
-        else:
-            for y in range(0, f[x].__len__()):
-                if y == 0 or y == f[x].__len__()-1:
-                    trow.append(1)
-                else:
-                    trow.append(f[x][y])
+        for y in range(-1, f[x].__len__()+1):
+            if y == -1 or y == f[x].__len__():
+                trow.append(1)
+            else:
+                trow.append(f[x][y])
         tcol.append(trow)
+    tcol.append([1]*(f[0].__len__()+2))
+    tcol[12][8] = 3
     return tcol
 
 
@@ -102,9 +105,24 @@ def start():
     final = border(join(top(), bottom()))
     rt()
 
-    for ln in final:
-        print(ln)
+    lst = []
+    for i in range(0,final[0].__len__()):
+        lst.append(i)
+    print(lst)
+    for stuff in final:
+        print(stuff)
 
+
+    graph = Map(final[0].__len__(),final.__len__())
+    graph.createWalls(final)
+    start = graph.getStartLocation(final)
+    goal = graph.getGoalLocations(final)
+    came_from, cost_so_far = a_star_search(graph,start,goal[0])
+    path = reconstruct_path(came_from,start,goal[0])
+    agent.say("HAI",'p',10000, 5, 5)
+
+    for pt in path:
+        print(pt)
 
 # ENTRY POINT
 start()
