@@ -104,25 +104,30 @@ def start():
     rt()
     final = border(join(top(), bottom()))
     rt()
-
-    lst = []
-    for i in range(0,final[0].__len__()):
-        lst.append(i)
-    print(lst)
-    for stuff in final:
-        print(stuff)
-
-
     graph = Map(final[0].__len__(),final.__len__())
     graph.createWalls(final)
     start = graph.getStartLocation(final)
     goal = graph.getGoalLocations(final)
     came_from, cost_so_far = a_star_search(graph,start,goal[0])
-    path = reconstruct_path(came_from,start,goal[0])
-    agent.say("HAI",'p',10000, 5, 5)
+    dirs = parsePath(reconstruct_path(came_from,start,goal[0]))
+    for s in dirs:
+        print(s)
 
-    for pt in path:
-        print(pt)
+
+def parsePath(path):
+    dirs = []
+    for i in range(0,path.__len__()-1):
+        if path[i][0] > path[i+1][0]:
+            dirs.append("up")
+        elif path[i][0] < path[i+1][0]:
+            dirs.append("down")
+        else:
+            if path[i][1] > path[i + 1][1]:
+                dirs.append("left")
+            elif path[i][1] < path[i + 1][1]:
+                dirs.append("right")
+    return dirs
+
 
 # ENTRY POINT
 start()

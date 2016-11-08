@@ -5,16 +5,17 @@ class Map:
         self.walls = []
         self.weights = {}
 
-    #creates a list of the wall locations for the new Map
-    #each item in the walls list is a tuple where the location tuple represents the index in the original array
+    # creates a list of the wall locations for the new Map
+    # each item in the walls list is a tuple where the location tuple represents the index in the original array
     def createWalls(self, originalMaze):
         for i in range(0, self.height):
             for k in range(0, self.width):
                 if(originalMaze[i][k] == 1):
                     self.walls.append((i, k))
 
-    #returns the location in which the pegi guy starts in the original maze
-    #the item in which is returned will be a tuple of the index where the pegi starts
+
+    # returns the location in which the pegi guy starts in the original maze
+    # the item in which is returned will be a tuple of the index where the pegi starts
     def getStartLocation(self, originalMaze):
         for i in range(0, self.height):
             for k in range(0, self.width):
@@ -22,8 +23,8 @@ class Map:
                     return (i, k)
         return None
 
-    #returns a list of the locations in which a goal item is found in the original maze
-    #the list returned will be of tuples where each tuple is an index location where the goal item is located
+    # returns a list of the locations in which a goal item is found in the original maze
+    # the list returned will be of tuples where each tuple is an index location where the goal item is located
     def getGoalLocations(self, originalMaze):
         goalLocations = []
         for i in range(0, self.height):
