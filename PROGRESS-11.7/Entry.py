@@ -108,8 +108,7 @@ def start():
     graph.createWalls(final)
     start = graph.getStartLocation(final)
     goal = graph.getGoalLocations(final)
-    came_from, cost_so_far = a_star_search(graph,start,goal[0])
-    dirs = parsePath(reconstruct_path(came_from,start,goal[0]))
+    dirs = parsePath(a_star_search(graph, start, goal[0]))
     for s in dirs:
         moveGuyInDirection(agent, s)
 
