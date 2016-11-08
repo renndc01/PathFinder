@@ -111,7 +111,7 @@ def start():
     came_from, cost_so_far = a_star_search(graph,start,goal[0])
     dirs = parsePath(reconstruct_path(came_from,start,goal[0]))
     for s in dirs:
-        print(s)
+        moveGuyInDirection(agent, s)
 
 
 def parsePath(path):
@@ -128,6 +128,28 @@ def parsePath(path):
                 dirs.append("right")
     return dirs
 
+
+def moveGuyInDirection(agent, direction):
+    if (direction.tolower() == 'left'):
+        moveGuyOnX(agent, -5000)
+    if (direction.tolower() == 'right'):
+        moveGuyOnX(agent, 5000)
+    if (direction.tolower() == 'up'):
+        moveGuyOnY(agent, 5000)
+    if (direction.tolower() == 'down'):
+        moveGuyOnY(agent, -5000)
+
+
+def moveGuyOnX(agent, force):
+    agent.apply_force(force, 0)
+    time.sleep(1)
+    agent.apply_force(-force, 0)
+
+
+def moveGuyOnY(agent, force):
+    agent.apply_force(0, force)
+    time.sleep(1)
+    agent.apply_force(0, -force)
 
 # ENTRY POINT
 start()

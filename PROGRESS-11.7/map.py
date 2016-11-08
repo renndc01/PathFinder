@@ -12,7 +12,25 @@ class Map:
             for k in range(0, self.width):
                 if(originalMaze[i][k] == 1):
                     self.walls.append((i, k))
+        self.addExtraWalls(originalMaze)
 
+    def addExtraWalls(self, originalMaze):
+        for wall in self.walls:
+            (x, y) = wall
+            if (x > 2 and x < self.width - 2 and y > 2 and y < self.height - 2):
+                # up
+                if (originalMaze[x][y - 1] == 0):
+                    if (originalMaze[x][y - 2] == 1):
+                        self.walls.append((x, (y - 1)))
+                if (originalMaze[x][y + 1] == 0):
+                    if (originalMaze[x][y + 2] == 1):
+                        self.walls.append((x, (y + 1)))
+                if (originalMaze[x - 1][y] == 0):
+                    if (originalMaze[x - 2][y] == 1):
+                        self.walls.append(((x + 1), y))
+                if (originalMaze[x + 1][y] == 0):
+                    if (originalMaze[x + 2][y] == 1):
+                        self.walls.append(((x + 1), y))
 
     # returns the location in which the pegi guy starts in the original maze
     # the item in which is returned will be a tuple of the index where the pegi starts
